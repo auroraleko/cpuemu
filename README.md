@@ -1,2 +1,3 @@
-# turbo-umbrella
-ffalskdjfhdkjlasdhflkashdflhdflihugfleihrf3liuehlighlhglirughliughhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+# cpuOS
+64-bit esoteric OS made in C...
+it's "useful" for small circuits for easy computation
