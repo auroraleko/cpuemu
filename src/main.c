@@ -20,6 +20,7 @@ Map funcMap[] = {
 	{"CLOCK", _CLOCK, "Shows time and date."},
 	{"EXIT", _EXIT, "seriously? you don't know what this does??"},
 	{"HELP", _HELP, "self-explanatory, again..."},
+	{"PRINT_BUS", _PRINT_BUS, "prints the entire bus."},
 	{"\0", NULL, "\0"}
 };
 
@@ -27,7 +28,7 @@ void _HELP() {
 	printf("LIST OF POSSIBLE COMMANDS:\n");
 	int i=0;
 	while (i<sizeof(funcMap)/sizeof(funcMap[0])) {
-		printf("\n%s : %s", funcMap[i].name, funcMap[i].desc);
+		printf("\n     %s : %s", funcMap[i].name, funcMap[i].desc);
 		i++;
 	} printf("\n");
 }
@@ -38,9 +39,12 @@ void shell() {
 	printf("%s\n\ncpuOS ALPHA v0.0.1\n", title);
 	printf("Please enter your name: ");scanf("%s", &user);
 	while (1) {
-		printf("%s %% ", user);scanf("%s", &input);
+		printf("\n%s%% ", user);scanf("%s", &input);
 		int i=0;
 		while (i<sizeof(funcMap)/sizeof(funcMap[0].name)) {
+			if (i>sizeof(funcMap)/sizeof(funcMap[0].name)) {
+				i=0;
+			}
 			if (strcmp(input, funcMap[i].name) == 0) {
 				funcMap[i].func();break;
 			} else {
@@ -51,6 +55,10 @@ void shell() {
 }
 
 int main() {
-	shell();
+	int i=0;
+	while (i<65) {
+		bus_storage[i].loc = i;
+		i++;
+	} shell();
 	return 0;
 }
