@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "helper.h"
+#include "funclib.h"
 
-int _LOAD() {
+void _LOAD() {
 	int i, input;
 	printf("\nADDRESS: ");scanf("%d", &input);
 	i=0;
 	while (i<64) {
-		if (bus[i].loc == input) {
-			return bus[i].val;
+		if (bus_storage[i].loc == input) {
+			printf("%d\n", bus_storage[i].val);
 		} else {
 			i++;
 		}
@@ -21,15 +21,15 @@ void _STORE() {
 	printf("WHERE TO STORE: ");scanf("%d", &input_loc);
 	int i=0;
 	while (i<64) {
-		if (bus[i].loc == input_loc) {
-			bus[i].val = input_val;break;
+		if (bus_storage[i].loc == input_loc) {
+			bus_storage[i].val = input_val;break;
 		} else {
 			i++;
 		}
 	}
 }
 
-int _MATH() {
+void _MATH() {
 	// math goes here, i'm not doing this yet.
 }
 

@@ -1,2 +1,5 @@
 all:
-	gcc ./src/source.c -o cpuemu.os
+	gcc ./src/main.c ./src/helper.c -o cpuemu.os
+
+clean:
+	rm -f cpuemu.os

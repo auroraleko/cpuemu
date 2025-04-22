@@ -4,11 +4,11 @@
 typedef struct {
 	int val;
 	int loc;
-} Byte; Byte bus[64];
+} Byte; extern Byte bus_storage[64];
 
-int _LOAD();
+void _LOAD();
 void _STORE();
-int _MATH();
+void _MATH();
 void _CLOCK();
 void _EXIT();
 void _HELP();

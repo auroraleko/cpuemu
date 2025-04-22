@@ -1,23 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../ascii/title.h"
-#include "helper.h"
+#include "funclib.h"
 #define CLEAR system("clear")
 
+Byte bus_storage[64];
 typedef void (*cmdFunc)();
 typedef struct {
-	char name;
+	char *name;
 	cmdFunc func;
 	const char *desc;
 } Map;
 
 Map funcMap[] = {
-	{"LOAD", _LOAD, ":  Loads a value from an address."},
-	{"STORE", _STORE, ":  Stores a value into an address."},
-	{"MATH", _MATH, ":  Performs mathematical operations on any 2 values."},
-	{"CLOCK", _CLOCK, ":  Shows time and date."},
-	{"EXIT", _EXIT, ":  seriously? you don't know what this does??"},
-	{"HELP", _HELP, ":  self-explanatory, again..."},
+	{"LOAD", _LOAD, "Loads a value from an address."},
+	{"STORE", _STORE, "Stores a value into an address."},
+	{"MATH", _MATH, "Performs mathematical operations on any 2 values."},
+	{"CLOCK", _CLOCK, "Shows time and date."},
+	{"EXIT", _EXIT, "seriously? you don't know what this does??"},
+	{"HELP", _HELP, "self-explanatory, again..."},
 	{"\0", NULL, "\0"}
 };
 
@@ -25,7 +27,7 @@ void _HELP() {
 	printf("LIST OF POSSIBLE COMMANDS:\n");
 	int i=0;
 	while (i<sizeof(funcMap)/sizeof(funcMap[0])) {
-		printf("\n%s%s", funcMap[i].name, funcMap[i].desc);
+		printf("\n%s : %s", funcMap[i].name, funcMap[i].desc);
 		i++;
 	} printf("\n");
 }
@@ -38,12 +40,17 @@ void shell() {
 	while (1) {
 		printf("%s %% ", user);scanf("%s", &input);
 		int i=0;
-		while (i<6) {
-			if (input == funcMap[i].name) {
+		while (i<sizeof(funcMap)/sizeof(funcMap[0].name)) {
+			if (strcmp(input, funcMap[i].name) == 0) {
 				funcMap[i].func();break;
 			} else {
 				i++;
 			}
 		}
 	}
+}
+
+int main() {
+	shell();
+	return 0;
 }
