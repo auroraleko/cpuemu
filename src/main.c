@@ -34,7 +34,7 @@ void _HELP() {
 
 char user[64];
 void shell() {
-	char input[64];
+	CLEAR;char input[64];
 	printf("%s\n\ncpuOS ALPHA v0.0.1\n", title);
 	printf("Please enter your name: ");scanf("%s", &user);
 	while (1) {
