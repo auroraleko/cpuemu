@@ -17,10 +17,8 @@ void _LOAD() {
 
 void _STORE() {
 	int input_val, input_loc;
-	printf("VALUE: ");
-	scanf("%d", &input_val);
-	printf("WHERE TO STORE: ");
-	scanf("%d", &input_loc);
+	printf("VALUE: ");scanf("%d", &input_val);
+	printf("WHERE TO STORE: ");scanf("%d", &input_loc);
 	for (int i = 0; i < 65; i++) {
 		if (bus_storage[i].loc == input_loc) {
 			bus_storage[i].val = input_val;
