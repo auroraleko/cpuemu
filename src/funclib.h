@@ -1,3 +1,4 @@
+// cpuOS Copyright 2025 Aurora Leko
 #ifndef HELPER_H
 #define HELPER_H
 
