@@ -7,7 +7,6 @@
 
 Byte bus_storage[64];
 typedef void (*cmdFunc)();
-typedef int (*cmdintReturn)();
 typedef struct {
 	char *name;
 	cmdFunc func;
