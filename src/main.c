@@ -24,10 +24,12 @@ Map funcMap[] = {
 	{"\0", NULL, "\0"}
 };
 
+int funcSize = sizeof(funcMap)/sizeof(funcMap[0].name);
+
 void _HELP() {
 	printf("LIST OF POSSIBLE COMMANDS:\n");
 	int i=0;
-	while (i<sizeof(funcMap)/sizeof(funcMap[0])) {
+	while (i<funcSize) {
 		printf("\n     %s : %s", funcMap[i].name, funcMap[i].desc);
 		i++;
 	} printf("\n");
@@ -41,11 +43,10 @@ void shell() {
 	while (1) {
 		printf("\n%s%% ", user);scanf("%s", &input);
 		int i=0;
-		while (i<sizeof(funcMap)/sizeof(funcMap[0].name)) {
-			if (i>sizeof(funcMap)/sizeof(funcMap[0].name)) {
-				i=0;
-			}
-			if (strcmp(input, funcMap[i].name) == 0) {
+		while (i<funcSize) {
+			if (i>funcSize) {
+				i=0;break;
+			} if (strcmp(input, funcMap[i].name) == 0) {
 				funcMap[i].func();break;
 			} else {
 				i++;
