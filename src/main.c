@@ -17,7 +17,7 @@ typedef struct {
 Map funcMap[] = {
 	{"LOAD", _LOAD, "Loads a value from an address."},
 	{"STORE", _STORE, "Stores a value into an address."},
-	{"MATH", _MATH, "Performs mathematical operations on any 2 values."},
+	{"MATH", _MATH, "Performs arithmetic operations on any 2 values."},
 	{"CLOCK", _CLOCK, "Shows time and date."},
 	{"EXIT", _EXIT, "seriously? you don't know what this does??"},
 	{"HELP", _HELP, "self-explanatory, again..."},
