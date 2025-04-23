@@ -39,7 +39,7 @@ void _HELP() {
 char user[64];
 void shell() {
 	CLEAR;char input[64];
-	printf("%s\n\ncpuOS ALPHA v0.0.1\n", title);
+	printf("%s\n\ncpuOS ALPHA v0.0.1 2025 Copyright Aurora Leko\n", title);
 	printf("Please enter your name: ");scanf("%s", &user);
 	while (1) {
 		printf("\n%s%% ", user);scanf("%s", &input);
