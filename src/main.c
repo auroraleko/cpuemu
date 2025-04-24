@@ -33,7 +33,8 @@ void _HELP() {
 	while (i<funcSize) {
 		printf("\n     %s : %s", funcMap[i].name, funcMap[i].desc);
 		i++;
-	} printf("\n");
+	} 
+	printf("\n");
 }
 
 char user[64];
@@ -43,14 +44,17 @@ void shell() {
 	printf("Please enter your name: ");scanf("%s", &user);
 	while (1) {
 		printf("\n%s%% ", user);scanf("%s", &input);
-		int i=0;
+		int i=0;int found=0;
 		while (i<funcSize) {
-			if (i>funcSize) {
-				i=0;break;
-			} if (strcmp(input, funcMap[i].name) == 0) {
-				funcMap[i].func();break;
-			} else {
+			while (funcMap[i].name != '\0') {
+				if (strcmp(input, funcMap[i].name) == 0) {
+					funcMap[i].func();
+					found=1;break;
+				}
 				i++;
+			}
+			if (found != 1) {
+				printf("Unknown command: %s\n\n", input);
 			}
 		}
 	}
