@@ -20,8 +20,7 @@ void _STORE() {
 	int input_val, input_loc;
 	printf("VALUE: ");scanf("%d", &input_val);
 	printf("WHERE TO STORE: ");scanf("%d", &input_loc);
-	int i=0;
-	while (i<65) {
+	for (int i = 0; i < 65; i++) {
 		if (bus_storage[i].loc == input_loc) {
 			bus_storage[i].val = input_val;
 			return;
@@ -50,4 +49,3 @@ void _PRINT_BUS() {
 	}
 	printf("---------------------\n");
 }
-
