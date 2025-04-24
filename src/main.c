@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "../ascii/title.h"
 #include "funclib.h"
 #define CLEAR system("clear")
@@ -32,7 +33,7 @@ void _HELP() {
 	int i=0;
 	while (i<funcSize) {
 		printf("\n     %s : %s", funcMap[i].name, funcMap[i].desc);
-		i++;
+		usleep(50000);i++;
 	}
 	printf("\n");
 }
