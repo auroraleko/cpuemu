@@ -1,6 +1,6 @@
 // cpuOS Copyright 2025 Aurora Leko
-#ifndef HELPER_H
-#define HELPER_H
+#ifndef FUNCLIB_H
+#define FUNCLIB_H
 
 typedef struct {
 	int val;
