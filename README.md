@@ -1,3 +1,3 @@
-# cpuOS
-64-bit esoteric OS made in C...
-it's "useful" for small circuits for easy computation
+# CPUemu
+64-bit esoteric shell made in C...
+it's... something
