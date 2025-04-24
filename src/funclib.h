@@ -1,4 +1,3 @@
-// cpuOS Copyright 2025 Aurora Leko
 #ifndef FUNCLIB_H
 #define FUNCLIB_H
 
