@@ -25,7 +25,7 @@ Map funcMap[] = {
 	{"\0", NULL, "\0"}
 };
 
-int funcSize = sizeof(funcMap)/sizeof(funcMap[0].name);
+size_t funcSize = sizeof(funcMap)/sizeof(funcMap[0]);
 
 void _HELP() {
 	printf("LIST OF POSSIBLE COMMANDS:\n");
@@ -39,27 +39,28 @@ void _HELP() {
 
 char user[64];
 void shell() {
-	CLEAR;char input[64];
+	CLEAR;char args[64];
 	printf("%s\n\ncpuOS ALPHA v0.0.1 2025 Copyright Aurora Leko\n", title);
 	printf("Please enter your name: ");scanf("%s", &user);
+	if (strcmp(user, "debugpls") == 0) {
+		system("gcc -fsanitize=address -g ./src/main.c ./src/helper.c -o cpuemu.os;echo \"Debug Mode Activated.\"");system("sleep 1;./cpuemu.os");
+	}
 	while (1) {
-		printf("\n%s%% ", user);scanf("%s", &input);
+		printf("\n%s%% ", user);scanf("%s", &args);
 		int i=0;
 		while (i<funcSize) {
-			if (i>funcSize) {
-				i=0;break;
-			} if (strcmp(input, funcMap[i].name) == 0) {
-				funcMap[i].func();break;
-			} else {
-				i++;
+			if (strcmp(args, funcMap[i].name) == 0) {
+				funcMap[i].func();
+				break;
 			}
+			i++;	
 		}
 	}
 }
 
 int main() {
 	int i=0;
-	while (i<65) {
+	while (i<64) {
 		bus_storage[i].loc = i;
 		i++;
 	} shell();
