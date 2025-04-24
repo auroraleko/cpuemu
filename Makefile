@@ -4,3 +4,9 @@ all:
 
 clean:
 	rm -f cpuemu.os
+
+debug:
+	gcc -fsanitize=address -g ./src/debug/main_debug.c ./src/helper.c -o cpuemu.os
+	./cpuemu.os
+
+

@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "../ascii/title.h"
-#include "../db/junk.h"
-#include "funclib.h"
+#include "../funclib.h"
 #define CLEAR system("clear")
 
 Byte bus_storage[64];
@@ -41,13 +39,9 @@ void _HELP() {
 char user[64];
 void shell() {
 	CLEAR;char args[64];
-	printf("%s\n\ncpuOS %s\n", title, ver);
-	printf("Please enter your name: ");scanf("%s", &user);
-	if (strcmp(user, "debugpls") == 0) {
-		system("gcc -fsanitize=address -g ./src/main.c ./src/helper.c -o cpuemu.os;echo \"Debug Mode Activated.\"");system("sleep 1;./cpuemu.os");
-	}
+	printf("CPUemu Debug Mode\n\n");
 	while (1) {
-		printf("\n%s%% ", user);scanf("%s", &args);
+		printf("debug%% ", user);scanf("%s", &args);
 		int i=0;
 		while (i<funcSize) {
 			if (strcmp(args, funcMap[i].name) == 0) {
