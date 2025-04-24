@@ -1,4 +1,3 @@
-// cpuOS Copyright 2025 Aurora Leko
 #include <stdio.h>
 #include <stdlib.h>
 #include "funclib.h"
