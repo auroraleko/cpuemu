@@ -23,7 +23,7 @@ Map funcMap[] = {
 	{"EXIT", _EXIT, "seriously? you don't know what this does??"},
 	{"HELP", _HELP, "self-explanatory, again..."},
 	{"PRINT_BUS", _PRINT_BUS, "prints the entire bus."},
-	{"ECHO", _ECHO, "Echoes whatever you put after it"},
+	{"ECHO", _ECHO, "Echoes whatever you put after it. Use \"_\" or something instead of space."},
 	{"CLEAR", _CLEAR, "clears your screen"},
 	{"\0", NULL, "\0"}
 };

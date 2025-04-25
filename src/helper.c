@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "funclib.h"
 
 void _LOAD() {
@@ -51,9 +52,8 @@ void _PRINT_BUS() {
 
 void _ECHO() {
 	char args[512];
-	printf(": ");scanf("%s", &args);
+	printf(": ");scanf("%s", args);
 	printf("\n%s\n", args);
-
 }
 
 void _CLEAR() {
