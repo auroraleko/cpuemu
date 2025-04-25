@@ -17,8 +17,8 @@ void _LOAD() {
 
 void _STORE() {
 	int input_val, input_loc;
-	printf("VALUE: ");scanf("%d", &input_val);
-	printf("WHERE TO STORE: ");scanf("%d", &input_loc);
+	printf("\nVALUE: ");scanf("%d", &input_val);
+	printf("\nWHERE TO STORE: ");scanf("%d", &input_loc);
 	for (int i = 0; i < 65; i++) {
 		if (bus_storage[i].loc == input_loc) {
 			bus_storage[i].val = input_val;
@@ -29,7 +29,7 @@ void _STORE() {
 
 
 void _MATH() {
-	printf("work in progress...\n");
+	printf("\nwork in progress...\n");
 	// math goes here, i'm not doing this yet.
 }
 
@@ -44,7 +44,14 @@ void _EXIT() {
 void _PRINT_BUS() {
 	printf("---- BUS MEMORY ----\n");
 	for (int i=0;i<65;i++) {
-		printf("[%2d] LOC: %d, VAL: %d\n", i, bus_storage[i].loc, bus_storage[i].val);
+		printf("[%d] LOC: %d, VAL: %d\n", i, bus_storage[i].loc, bus_storage[i].val);
 	}
 	printf("---------------------\n");
+}
+
+void _ECHO() {
+	char args[512];
+	printf(": ");scanf("%s", &args);
+	printf("\n%s\n", args);
+
 }
