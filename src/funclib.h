@@ -15,4 +15,5 @@ void _EXIT();
 void _HELP();
 void _PRINT_BUS();
 void _ECHO();
+void _CLEAR();
 #endif

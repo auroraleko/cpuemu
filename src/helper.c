@@ -55,3 +55,7 @@ void _ECHO() {
 	printf("\n%s\n", args);
 
 }
+
+void _CLEAR() {
+	system("clear"); // THIS ALSO ISN'T A MACRO SHUT UP
+}
