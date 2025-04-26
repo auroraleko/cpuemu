@@ -13,6 +13,13 @@ typedef struct {
 	const char *desc;
 } Map;
 
+/*
+typedef struct {
+	char *name;
+	cmdFunc func;
+} bgMap;
+*/
+
 Map funcMap[] = {
 	{"LOAD", _LOAD, "Loads a value from an address."},
 	{"STORE", _STORE, "Stores a value into an address."},
@@ -21,8 +28,16 @@ Map funcMap[] = {
 	{"EXIT", _EXIT, "seriously? you don't know what this does??"},
 	{"HELP", _HELP, "self-explanatory, again..."},
 	{"PRINT_BUS", _PRINT_BUS, "prints the entire bus."},
+	{"ECHO", _ECHO, "Echoes whatever you decide. use \"_\" instead of a spaxe key."},
+	{"CLEAR", _CLEAR, "clears the screen"}
 	{"\0", NULL, "\0"}
 };
+
+/*
+bgMap subMap[] = {
+
+}
+*/
 
 size_t funcSize = sizeof(funcMap)/sizeof(funcMap[0]);
 
