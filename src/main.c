@@ -15,13 +15,6 @@ typedef struct {
 	const char *desc;
 } Map;
 
-/*
-typedef struct {
-	char *name;
-	cmdFunc func;
-} bgMap;
-*/
-
 Map funcMap[] = {
 	{"LOAD", _LOAD, "Loads a value from an address."},
 	{"STORE", _STORE, "Stores a value into an address."},
@@ -34,12 +27,6 @@ Map funcMap[] = {
 	{"CLEAR", _CLEAR, "clears your screen"},
 	{"\0", NULL, "\0"}
 };
-
-/*
-bgMap subMap[] = {
-
-}
-*/
 
 size_t funcSize = sizeof(funcMap)/sizeof(funcMap[0]);
 
@@ -54,6 +41,7 @@ void _HELP() {
 }
 
 char user[64];
+
 void shell() {
 	CLEAR;char args[64];
 	printf("%s\n\ncpuOS %s\n", title, ver);
