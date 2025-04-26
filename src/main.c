@@ -15,6 +15,13 @@ typedef struct {
 	const char *desc;
 } Map;
 
+/*
+typedef struct {
+	char *name;
+	cmdFunc func;
+} bgMap;
+*/
+
 Map funcMap[] = {
 	{"LOAD", _LOAD, "Loads a value from an address."},
 	{"STORE", _STORE, "Stores a value into an address."},
