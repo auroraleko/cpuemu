@@ -35,6 +35,12 @@ Map funcMap[] = {
 	{"\0", NULL, "\0"}
 };
 
+/*
+bgMap subMap[] = {
+
+}
+*/
+
 size_t funcSize = sizeof(funcMap)/sizeof(funcMap[0]);
 
 void _HELP() {
