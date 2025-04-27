@@ -30,8 +30,37 @@ void _STORE() {
 
 
 void _MATH() {
-	printf("\nwork in progress...\n");
-	// math goes here, i'm not doing this yet.
+	/*
+	int x, y;
+	typedef void (*funcCall)();
+	typedef struct {
+		char *opName;
+		funcCall opFunc;
+	} Block;
+	Block operationMap[] = {
+		{"ADD", _MATH_ADD},
+		{"SUB" _MATH_SUB},
+		{"MUL", _MATH_MUL},
+		{"DIV", _MATH_DIV},
+		{"\0", NULL}
+	}; char input[64];
+	printf("OPERATION :");scanf("%s", &input);
+	while (1) {
+		int i=0;int found = 0;
+		int opSize = sizeof(operationMap)/sizeof(operationMap[0]);
+		while (i<opSize) {
+			if (operationMap[i].opName == input) {
+				operationMap[i].opFunc();
+				found = 1;break;
+			}
+			i++;
+		}
+		if (found != 1) {
+			printf("OPERATION INVALID\n");
+		}
+	}
+	*/
+	// work in orogress :3
 }
 
 void _CLOCK() {
