@@ -30,7 +30,6 @@ void _STORE() {
 
 
 void _MATH() {
-	/*
 	int x, y;
 	typedef void (*funcCall)();
 	typedef struct {
@@ -46,7 +45,7 @@ void _MATH() {
 	}; char input[64];
 	printf("OPERATION :");scanf("%s", &input);
 	while (1) {
-		int i=0;int found = 0;
+		int i=0, found = 0;
 		int opSize = sizeof(operationMap)/sizeof(operationMap[0]);
 		while (i<opSize) {
 			if (operationMap[i].opName == input) {
@@ -59,12 +58,10 @@ void _MATH() {
 			printf("OPERATION INVALID\n");
 		}
 	}
-	*/
-	// work in orogress :3
 }
 
 void _CLOCK() {
-	system("timedatectl");
+	system("timedatectl"); // I'M NOT USING #DEFINE
 }
 
 void _EXIT() {
@@ -80,9 +77,9 @@ void _PRINT_BUS() {
 }
 
 void _ECHO() {
-	char args[512];
-	printf(": ");scanf("%s", args);
-	printf("\n%s\n", args);
+	char *input = ": ";
+	printf("%p", *input);scanf("%s", &input);
+	printf("\n%p\n", *input);
 }
 
 void _CLEAR() {
