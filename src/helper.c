@@ -30,6 +30,7 @@ void _STORE() {
 
 
 void _MATH() {
+	/*
 	int x, y;
 	typedef void (*funcCall)();
 	typedef struct {
@@ -58,6 +59,8 @@ void _MATH() {
 			printf("OPERATION INVALID\n");
 		}
 	}
+	*/
+	printf("work in progress!\n");
 }
 
 void _CLOCK() {
@@ -77,9 +80,9 @@ void _PRINT_BUS() {
 }
 
 void _ECHO() {
-	char *input = ": ";
-	printf("%p", *input);scanf("%s", &input);
-	printf("\n%p\n", *input);
+	char input[] = ": ";
+	printf("%s", input);scanf("%s", &input);
+	printf("\n%s\n", input);
 }
 
 void _CLEAR() {
