@@ -27,11 +27,10 @@ void _STORE() {
 		}
 	}
 }
-
+ 
+/* make math functions */
 
 void _MATH() {
-	/*
-	int x, y;
 	typedef void (*funcCall)();
 	typedef struct {
 		char *opName;
@@ -59,8 +58,6 @@ void _MATH() {
 			printf("OPERATION INVALID\n");
 		}
 	}
-	*/
-	printf("work in progress!\n");
 }
 
 void _CLOCK() {

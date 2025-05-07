@@ -51,13 +51,17 @@ void shell() {
 	}
 	while (1) {
 		printf("\n%s%% ", user);scanf("%s", &args);
-		int i=0;
+		int i=0;int found = 0;
 		while (i<funcSize) {
 			if (strcmp(args, funcMap[i].name) == 0) {
 				funcMap[i].func();
+				found = 1;
 				break;
 			}
 			i++;	
+		}
+		if (found == 0) {
+			printf("Invalid Command.\n");
 		}
 	}
 }
