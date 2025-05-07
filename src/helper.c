@@ -31,6 +31,7 @@ void _STORE() {
 /* make math functions */
 
 void _MATH() {
+	/*
 	typedef void (*funcCall)();
 	typedef struct {
 		char *opName;
@@ -58,6 +59,7 @@ void _MATH() {
 			printf("OPERATION INVALID\n");
 		}
 	}
+	*/
 }
 
 void _CLOCK() {

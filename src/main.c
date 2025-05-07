@@ -44,10 +44,10 @@ char user[64];
 
 void shell() {
 	CLEAR;char args[64];
-	printf("%s\n\ncpuOS %s\n", title, ver);
+	printf("%s\n\nemuSHELL %s\n", title, ver);
 	printf("Please enter your name: ");scanf("%s", &user);
 	if (strcmp(user, "debugpls") == 0) {
-		system("gcc -fsanitize=address -g ./src/main.c ./src/helper.c -o cpuemu.os;echo \"Debug Mode Activated.\"");system("sleep 1;./cpuemu.os");
+		system("gcc -fsanitize=address -g ./src/main.c ./src/helper.c -o emu_shell.cpu;echo \"Debug Mode Activated.\"");system("sleep 1;./emu_shell.cpu");
 	}
 	while (1) {
 		printf("\n%s%% ", user);scanf("%s", &args);
