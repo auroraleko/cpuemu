@@ -1,13 +1,10 @@
 all:
-	gcc ./src/main.c ./src/helper.c -o cpuemu.os
-	./cpuemu.os
+	gcc ./src/main.c ./src/helper.c -o emu_os.cpu
+	./emu_os.cpu
 
 clean:
-	rm -f cpuemu.os
+	rm -f ./emu_os.cpu
 
 debug:
-	gcc -fsanitize=address -g ./src/debug/main_debug.c ./src/helper.c -o cpuemu.os
-	./cpuemu.os
-
-# the debug is so outdated ill repair it when i will when it becomes inconvenient to me
-
+	gcc -fsanitize=address -g ./src/debug/main_debug.c ./src/helper.c -o emu_os.cpu
+	./emu_os.cpu
