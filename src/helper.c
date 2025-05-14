@@ -11,9 +11,12 @@ void _LOAD(void)
 	i=0;
 	while (i<65) {
 		if (bus_storage[i].loc == input) {
-			char valResult[512];
-			int valLen = snprintf(valResult, sizeof(valResult), "%d\n", bus_storage[i].val);
-			write(STDOUT_FILENO, valResult, valLen);break;
+			int idkLen = snprintf(NULL, 0, "%d\n", bus_storage[i].val);
+			char *valResult = malloc((idkLen + 1) * sizeof(char));
+			int valLen = snprintf(valResult, idkLen + 1, "%d\n", bus_storage[i].val);
+			write(STDOUT_FILENO, valResult, valLen);
+			free(valResult);
+			break;
 		}
 		i++;
 	}
@@ -79,11 +82,13 @@ inline void _PRINT_BUS(void)
 	write(STDOUT_FILENO, "---- BUS MEMORY ----\n", 21);
 	int i=0;
 	while (i<65) {
-		char buffer[64];
+		int idkLen = snprintf(NULL, 0, "[%d] LOC: %d | VAL: %d\n", i, bus_storage[i].loc, bus_storage[i].val);
+		char *buffer = malloc((idkLen + 1) * sizeof(char));
 		int len = snprintf(buffer, sizeof(buffer), "[%d] LOC: %d | VAL: %d\n", i, bus_storage[i].loc, bus_storage[i].val);
 		write(STDOUT_FILENO, buffer, len);
 		i++;
 	}
+	free(buffer)
 	write(STDOUT_FILENO, "---------------------\n", 22);
 }
 
