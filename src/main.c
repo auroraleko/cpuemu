@@ -9,13 +9,17 @@
 
 Byte bus_storage[64];
 typedef void (*cmdFunc)();
-typedef struct {
+typedef struct
+{
 	char *name;
 	cmdFunc func;
 	const char *desc;
 } Map;
 
-Map funcMap[] = {
+static inline void _HELP(void);
+
+Map funcMap[]= 
+{
 	{"LOAD", _LOAD, "Loads a value from an address."},
 	{"STORE", _STORE, "Stores a value into an address."},
 	{"MATH", _MATH, "Performs arithmetic operations on any 2 values."},
@@ -30,27 +34,36 @@ Map funcMap[] = {
 
 size_t funcSize = sizeof(funcMap)/sizeof(funcMap[0]);
 
-void _HELP() {
-	printf("LIST OF POSSIBLE COMMANDS:\n");
+void _HELP(void) 
+{
+	write(STDOUT_FILENO, "LIST OF POSSIBLE COMMANDS:\n", 27);
 	int i=0;
 	while (i<funcSize) {
-		printf("\n     %s : %s", funcMap[i].name, funcMap[i].desc);
+		char buffer[256];
+		int len = snprintf(buffer, sizeof(buffer), "\n    %s : %s", funcMap[i].name, funcMap[i].desc);
+		write(STDOUT_FILENO, buffer, len);
 		usleep(50000);i++;
 	}
-	printf("\n");
+	write(STDOUT_FILENO, "\n", 1);
 }
 
 char user[64];
 
-void shell() {
-	CLEAR;char args[64];
-	printf("%s\n\nemuSHELL %s\n", title, ver);
-	printf("Please enter your name: ");scanf("%s", &user);
+static void shell(void) 
+{
+	CLEAR;char args[512];
+	char startBuf[1531];
+	int startLen = snprintf(startBuf, sizeof(startBuf), "%s\nemuSHELL %s\n", title, ver);
+	write(STDOUT_FILENO, startBuf, startLen);
+	write(STDOUT_FILENO, "Please enter your name: ", 24);scanf("%s", &user);
 	if (strcmp(user, "debugpls") == 0) {
 		system("gcc -fsanitize=address -g ./src/main.c ./src/helper.c -o emu_shell.cpu;echo \"Debug Mode Activated.\"");system("sleep 1;./emu_shell.cpu");
 	}
 	while (1) {
-		printf("\n%s%% ", user);scanf("%s", &args);
+		char shellBuffer[64];
+		int shellLen = snprintf(shellBuffer, sizeof(shellBuffer), "\n%s%% ", user);
+		write(STDOUT_FILENO, shellBuffer, shellLen);
+		scanf("%s", &args);
 		int i=0;int found = 0;
 		while (i<funcSize) {
 			if (strcmp(args, funcMap[i].name) == 0) {
@@ -61,12 +74,12 @@ void shell() {
 			i++;	
 		}
 		if (found == 0) {
-			printf("Invalid Command.\n");
+			write(STDERR_FILENO, "Invalid Command.\n", 17);
 		}
 	}
 }
 
-int main() {
+int main(void) {
 	int i=0;
 	while (i<64) {
 		bus_storage[i].loc = i;

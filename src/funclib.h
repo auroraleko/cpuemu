@@ -1,7 +1,8 @@
 #ifndef FUNCLIB_H
 #define FUNCLIB_H
 
-typedef struct {
+typedef struct 
+{
 	int val;
 	int loc;
 } Byte;
@@ -12,7 +13,6 @@ void _STORE();
 void _MATH();
 void _CLOCK();
 void _EXIT();
-void _HELP();
 void _PRINT_BUS();
 void _ECHO();
 void _CLEAR();

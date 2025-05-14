@@ -1,25 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "funclib.h"
 
-void _LOAD() {
+void _LOAD(void) 
+{
 	int i, input;
-	printf("\nADDRESS: ");scanf("%d", &input);
+	write(STDOUT_FILENO, "\nADDRESS: ", 10);scanf("%d", &input);
 	i=0;
 	while (i<65) {
 		if (bus_storage[i].loc == input) {
-			printf("%d\n", bus_storage[i].val);break;
-		} else {
-			i++;
+			char valResult[512];
+			int valLen = snprintf(valResult, sizeof(valResult), "%d\n", bus_storage[i].val);
+			write(STDOUT_FILENO, valResult, valLen);break;
 		}
+		i++;
 	}
 }
 
-void _STORE() {
+void _STORE(void) 
+{
 	int input_val, input_loc;
-	printf("\nVALUE: ");scanf("%d", &input_val);
-	printf("\nWHERE TO STORE: ");scanf("%d", &input_loc);
+	write(STDOUT_FILENO, "\nVALUE: ", 8);scanf("%d", &input_val);
+	write(STDOUT_FILENO, "\nADDRESS: ", 10);scanf("%d", &input_loc);
 	for (int i = 0; i < 65; i++) {
 		if (bus_storage[i].loc == input_loc) {
 			bus_storage[i].val = input_val;
@@ -30,7 +34,8 @@ void _STORE() {
  
 /* make math functions */
 
-void _MATH() {
+void _MATH(void) 
+{
 	/*
 	typedef void (*funcCall)();
 	typedef struct {
@@ -62,28 +67,46 @@ void _MATH() {
 	*/
 }
 
-void _CLOCK() {
+inline void _CLOCK(void) 
+{
 	system("timedatectl"); // I'M NOT USING #DEFINE
 }
 
-void _EXIT() {
-	exit(0); // this isn't a macro SHUT UP
-}
+inline void _EXIT(void) { exit(0); /*this isn't a macro SHUT UP*/ }
 
-void _PRINT_BUS() {
-	printf("---- BUS MEMORY ----\n");
-	for (int i=0;i<65;i++) {
-		printf("[%d] LOC: %d, VAL: %d\n", i, bus_storage[i].loc, bus_storage[i].val);
+inline void _PRINT_BUS(void)
+{
+	write(STDOUT_FILENO, "---- BUS MEMORY ----\n", 21);
+	int i=0;
+	while (i<65) {
+		char buffer[64];
+		int len = snprintf(buffer, sizeof(buffer), "[%d] LOC: %d | VAL: %d\n", i, bus_storage[i].loc, bus_storage[i].val);
+		write(STDOUT_FILENO, buffer, len);
+		i++;
 	}
-	printf("---------------------\n");
+	write(STDOUT_FILENO, "---------------------\n", 22);
 }
 
-void _ECHO() {
-	char input[] = ": ";
-	printf("%s", input);scanf("%s", &input);
-	printf("\n%s\n", input);
+inline void _ECHO(void)
+{
+	write(STDOUT_FILENO, "\n:", 2);
+	char input[64] = {0};
+	ssize_t n = read(STDIN_FILENO, input, sizeof(input) - 1);
+	if (n > 0) {
+		input[n] = '\0';
+		write(STDOUT_FILENO, "\n", 1);
+		write(STDOUT_FILENO, input, n);
+		write(STDOUT_FILENO, "\n", 1);
+	}
 }
 
-void _CLEAR() {
-	system("clear"); // THIS ALSO ISN'T A MACRO SHUT UP
+inline void _CLEAR(void) { system("clear"); /*THIS ALSO ISN'T A MACRO SHUT UP*/ }
+
+/*
+inline void _UP(void)
+{
+	char buffer[1];
+	fgets(buffer, 1, stdin);
+	fflush(stdout);
 }
+*/
