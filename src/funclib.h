@@ -6,7 +6,7 @@ typedef struct
 	int val;
 	int loc;
 } Byte;
-extern Byte bus_storage[64];
+extern Byte bus_storage[65];
 
 void _LOAD();
 void _STORE();

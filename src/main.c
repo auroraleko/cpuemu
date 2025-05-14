@@ -7,7 +7,7 @@
 #include "funclib.h"
 #define CLEAR system("clear")
 
-Byte bus_storage[64];
+Byte bus_storage[65];
 typedef void (*cmdFunc)();
 typedef struct
 {
@@ -81,7 +81,7 @@ static void shell(void)
 
 int main(void) {
 	int i=0;
-	while (i<64) {
+	while (i<65) {
 		bus_storage[i].loc = i;
 		i++;
 	} shell();
