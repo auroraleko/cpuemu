@@ -16,7 +16,7 @@ typedef struct
 	const char *desc;
 } Map;
 
-void _HELP();
+static inline void _HELP(void);
 Map funcMap[]= 
 {
 	{"LOAD", _LOAD, "Loads a value from an address."},
@@ -33,7 +33,7 @@ Map funcMap[]=
 
 size_t funcSize = sizeof(funcMap)/sizeof(funcMap[0]);
 
-static inline void _HELP(void) 
+void _HELP(void) 
 {
 	write(STDOUT_FILENO, "LIST OF POSSIBLE COMMANDS:\n", 27);
 	int i=0;
