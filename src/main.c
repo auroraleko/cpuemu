@@ -39,8 +39,9 @@ void _HELP(void)
 	write(STDOUT_FILENO, "LIST OF POSSIBLE COMMANDS:\n", 27);
 	int i=0;
 	while (i<funcSize) {
-		char buffer[256];
-		int len = snprintf(buffer, sizeof(buffer), "\n    %s : %s", funcMap[i].name, funcMap[i].desc);
+		int idkLen = sprintf(NULL, 0, "\n     %s : %s", funcMap[i].name, funcMap[i].desc);
+		char *buffer = malloc((idkLen + 1) * sizeof(char));
+		int len = snprintf(buffer, (idkLen + 1), "\n    %s : %s", funcMap[i].name, funcMap[i].desc);
 		write(STDOUT_FILENO, buffer, len);
 		usleep(50000);i++;
 	}
