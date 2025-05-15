@@ -70,7 +70,7 @@ static void shell(void)
 			if (strcmp(args, funcMap[i].name) == 0) {
   				if (funcMap[i].voidFunc != NULL) {
    					funcMap[i].voidFunc();
-					} else {
+				} else {
      					funcMap[i].intFunc();
   				}
    			found = 1;
