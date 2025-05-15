@@ -65,16 +65,16 @@ static void shell(void)
 		int shellLen = snprintf(shellBuffer, sizeof(shellBuffer), "\n%s%% ", user);
 		write(STDOUT_FILENO, shellBuffer, shellLen);
 		scanf("%s", &args); // fix this lmfao
-		int i=0;int found = 0;
+		int i=0, found = 0;
 		while (i<funcSize) {
 			if (strcmp(args, funcMap[i].name) == 0) {
   				if (funcMap[i].voidFunc != NULL) {
    					funcMap[i].voidFunc();
- 				} else {
+						} else {
      					funcMap[i].intFunc();
   				}
    			found = 1;
-  			break;
+	  			break;
 			}
 		i++;
 		}
