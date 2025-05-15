@@ -96,7 +96,7 @@ inline void _EXIT(void) { exit(0); /*this isn't a macro SHUT UP*/ }
 
 inline void _PRINT_BUS(void)
 {
-	write(STDOUT_FILENO, "---- BUS MEMORY ----\n", 21);
+	write(STDOUT_FILENO, "----- BUS MEMORY -----\n", 23);
 	int i=0;
 	while (i<65) {
 		char buffer[64];
@@ -104,7 +104,7 @@ inline void _PRINT_BUS(void)
 		write(STDOUT_FILENO, buffer, len);
 		i++;
 	}
-	write(STDOUT_FILENO, "---------------------\n", 22);
+	write(STDOUT_FILENO, "----------------------\n", 23);
 }
 
 inline void _ECHO(void)
