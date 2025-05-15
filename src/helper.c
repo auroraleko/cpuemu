@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include "funclib.h"
 
-inline int _LOAD(void) 
+int _LOAD(void) 
 {
 	int i;
 	char input[32];
