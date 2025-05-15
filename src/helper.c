@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include "funclib.h"
 
-int _LOAD(void) 
+static size_t _LOAD(void) 
 {
 	int i;
 	char input[32];
@@ -20,16 +20,24 @@ int _LOAD(void)
 	while (i<65) {
 		if (bus_storage[i].loc == post_input) 
 		{	
-			char buffer[64];
-			size_t len = snprintf(buffer, sizeof(buffer), "%d\n", bus_storage[i].val);
-			write(STDOUT_FILENO, buffer, len);
-			break;	
+			return bus_storage[i].val;
+			break;
 		}
 		i++;
 	}
 	return -1;
 }
- 
+
+inline void _void_LOAD(void)
+{
+	size_t res = _LOAD();
+
+	char buf[128];
+	size_t len = snprintf(buf, sizeof(buf), "%d\n", res);
+
+	write(STDOUT_FILENO, buf, len);
+}
+
 void _STORE(void)
 {
 	int i;
@@ -55,7 +63,7 @@ void _STORE(void)
 	}
 }
 
-int _MATH(void) 
+static int _MATH(void) 
 {
 	char read_x_char[64], read_y_char[64];
 	int x, y;
@@ -70,6 +78,16 @@ int _MATH(void)
 
 	char buf[64];
 	int len = snprintf(buf, sizeof(buf), "%d %d\n", bus_storage[read_x].val, bus_storage[read_y].val);
+	write(STDOUT_FILENO, buf, len);
+}
+
+inline void _void_MATH(void)
+{
+	int res = _MATH();
+
+	char buf[128];
+	size_t len = snprintf(buf, sizeof(buf), "%d\n", res);
+
 	write(STDOUT_FILENO, buf, len);
 }
 
@@ -110,12 +128,3 @@ inline void _ECHO(void)
 }
 
 inline void _CLEAR(void) { system("clear"); /*THIS ALSO ISN'T A MACRO SHUT UP*/ }
-
-/*
-inline void _UP(void)
-{
-	char buffer[1];
-	fgets(buffer, 1, stdin);
-	fflush(stdout);
-}
-*/

@@ -8,29 +8,27 @@
 #define CLEAR system("clear")
 
 Byte bus_storage[65];
-typedef void (*voidFunc)();
-typedef int (*intFunc)();
+typedef void (*callFunc)();
 typedef struct
 {
 	char *name;
-	voidFunc voidFunc;
-	intFunc intFunc;
+	callFunc func;
 	const char *desc;
 } Map;
 
 static inline void _HELP(void);
 Map funcMap[]= 
 {
-	{"LOAD", NULL, _LOAD, "Loads a value from an address."},
-	{"STORE", _STORE, NULL, "Stores a value into an address."},
-	{"MATH", NULL, _MATH, "Performs arithmetic operations on any 2 values."},
-	{"CLOCK", _CLOCK, NULL, "Shows time and date."},
-	{"EXIT", _EXIT, NULL, "seriously? you don't know what this does??"},
-	{"HELP", _HELP, NULL, "self-explanatory, again..."},
-	{"PRINT_BUS", _PRINT_BUS, NULL, "prints the entire bus."},
-	{"ECHO", _ECHO, NULL, "Echoes whatever you put after it. Use \"_\" or something instead of space."},
-	{"CLEAR", _CLEAR, NULL, "clears your screen"},
-	{"\0", NULL, NULL, "\0"}
+	{"LOAD", _void_LOAD, "Loads a value from an address."},
+	{"STORE", _STORE, "Stores a value into an address."},
+	{"MATH",  _void_MATH, "Performs arithmetic operations on any 2 values."},
+	{"CLOCK", _CLOCK, "Shows time and date."},
+	{"EXIT", _EXIT, "seriously? you don't know what this does??"},
+	{"HELP", _HELP, "self-explanatory, again..."},
+	{"PRINT_BUS", _PRINT_BUS, "prints the entire bus."},
+	{"ECHO", _ECHO, "Echoes whatever you put after it. Use \"_\" or something instead of space."},
+	{"CLEAR", _CLEAR, "clears your screen"},
+	{"\0", NULL, "\0"}
 };
 
 size_t funcSize = sizeof(funcMap)/sizeof(funcMap[0]);
@@ -66,21 +64,18 @@ static void shell(void)
 		write(STDOUT_FILENO, shellBuffer, shellLen);
 		scanf("%s", &args); // fix this lmfao
 		int i=0, found = 0;
-		while (i<funcSize) {
-			if (strcmp(args, funcMap[i].name) == 0) {
-  				if (funcMap[i].voidFunc != NULL) {
-   					funcMap[i].voidFunc();
-				} else {
-     					funcMap[i].intFunc();
-  				}
-	   			found = 1;
-	  			break;
-			}
+		while (i<funcSize) 
+		{
+			if (strcmp(args, funcMap[i].name) == 0) 
+			{
+   				funcMap[i].func();
+				found = 1;
+				break;
+  			}
 		i++;
 		}
-		if (found == 0) {
+		if (found == 0) 
 			write(STDERR_FILENO, "Invalid Command.\n", 17);
-		}
 	}
 }
 
@@ -92,3 +87,4 @@ int main(void) {
 	} shell();
 	return 0;
 }
+
