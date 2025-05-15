@@ -8,9 +8,9 @@ typedef struct
 } Byte;
 extern Byte bus_storage[65];
 
-void _LOAD();
+int _LOAD();
 void _STORE();
-void _MATH();
+int _MATH();
 void _CLOCK();
 void _EXIT();
 void _PRINT_BUS();

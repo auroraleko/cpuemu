@@ -4,37 +4,60 @@
 #include <unistd.h>
 #include "funclib.h"
 
-void _LOAD(void) 
+inline int _LOAD(void) 
 {
-	int i, input;
-	write(STDOUT_FILENO, "\nADDRESS: ", 10);scanf("%d", &input);
+	int i;
+	char input[32];
+
+	write(STDOUT_FILENO, "\nADDRESS: ", 10);
+	size_t scstat = read(STDIN_FILENO, input, sizeof(input)-1);
+	size_t post_input = atoi(input);
+
+	if (scstat == -1)
+		return scstat;
+	
 	i=0;
 	while (i<65) {
-		if (bus_storage[i].loc == input) {
-			char valResult[512];
-			int valLen = snprintf(valResult, sizeof(valResult), "%d\n", bus_storage[i].val);
-			write(STDOUT_FILENO, valResult, valLen);break;
+		if (bus_storage[i].loc == post_input) 
+		{
+			char buffer[64];
+			size_t len = snprintf(buffer, sizeof(buffer), "%d\n", bus_storage[i].val);
+			write(STDOUT_FILENO, buffer, len);
+			break;	
+		}
+		i++;
+	}
+	return -1;
+}
+ 
+void _STORE(void)
+{
+	int i;
+	char read_val[32], read_loc[32];
+
+	write(STDOUT_FILENO, "\nVALUE: ", 8);
+	read(STDIN_FILENO, read_val, sizeof(read_val)-1);
+	size_t read_intVal = atoi(read_val);
+
+	write(STDOUT_FILENO, "\nLOCATION: ", 11);
+	read(STDIN_FILENO, read_loc, sizeof(read_loc)-1);
+	size_t read_intLoc = atoi(read_loc);
+
+	i=0;
+	while (i<65)
+	{
+		if (bus_storage[i].loc == read_intLoc)
+		{
+			bus_storage[i].val = read_intVal;
+			break;
 		}
 		i++;
 	}
 }
 
-void _STORE(void) 
-{
-	int input_val, input_loc;
-	write(STDOUT_FILENO, "\nVALUE: ", 8);scanf("%d", &input_val);
-	write(STDOUT_FILENO, "\nADDRESS: ", 10);scanf("%d", &input_loc);
-	for (int i = 0; i < 65; i++) {
-		if (bus_storage[i].loc == input_loc) {
-			bus_storage[i].val = input_val;
-			return;
-		}
-	}
-}
- 
-/* make math functions */
+// make math functions
 
-void _MATH(void) 
+int _MATH(void) 
 {
 	/*
 	typedef void (*funcCall)();
@@ -67,10 +90,7 @@ void _MATH(void)
 	*/
 }
 
-inline void _CLOCK(void) 
-{
-	system("timedatectl"); // I'M NOT USING #DEFINE
-}
+inline void _CLOCK(void) { system("timedatectl"); /*I'M NOT USING DEFINE*/ }
 
 inline void _EXIT(void) { exit(0); /*this isn't a macro SHUT UP*/ }
 
@@ -80,7 +100,7 @@ inline void _PRINT_BUS(void)
 	int i=0;
 	while (i<65) {
 		char buffer[64];
-		int len = snprintf(buffer, sizeof(buffer), "[%d] LOC: %d | VAL: %d\n", i, bus_storage[i].loc, bus_storage[i].val);
+		size_t len = snprintf(buffer, sizeof(buffer), "[%d] LOC: %d | VAL: %d\n", i, bus_storage[i].loc, bus_storage[i].val);
 		write(STDOUT_FILENO, buffer, len);
 		i++;
 	}
@@ -89,7 +109,7 @@ inline void _PRINT_BUS(void)
 
 inline void _ECHO(void)
 {
-	write(STDOUT_FILENO, "\n:", 2);
+	write(STDOUT_FILENO, "\n : ", 4);
 	char input[64] = {0};
 	ssize_t n = read(STDIN_FILENO, input, sizeof(input) - 1);
 	if (n > 0) {
