@@ -9,7 +9,7 @@ int _LOAD(void)
 	int i;
 	char input[32];
 
-	write(STDOUT_FILENO, "\nADDRESS: ", 10);
+	write(STDOUT_FILENO, "\nADDRESS: 0x", 12);
 	size_t scstat = read(STDIN_FILENO, input, sizeof(input)-1);
 	size_t post_input = atoi(input);
 
@@ -19,7 +19,7 @@ int _LOAD(void)
 	i=0;
 	while (i<65) {
 		if (bus_storage[i].loc == post_input) 
-		{
+		{	
 			char buffer[64];
 			size_t len = snprintf(buffer, sizeof(buffer), "%d\n", bus_storage[i].val);
 			write(STDOUT_FILENO, buffer, len);
@@ -39,7 +39,7 @@ void _STORE(void)
 	read(STDIN_FILENO, read_val, sizeof(read_val)-1);
 	size_t read_intVal = atoi(read_val);
 
-	write(STDOUT_FILENO, "\nLOCATION: ", 11);
+	write(STDOUT_FILENO, "\nLOCATION: 0x", 13);
 	read(STDIN_FILENO, read_loc, sizeof(read_loc)-1);
 	size_t read_intLoc = atoi(read_loc);
 
@@ -55,7 +55,22 @@ void _STORE(void)
 	}
 }
 
-int _MATH(void) {
+int _MATH(void) 
+{
+	char read_x_char[64], read_y_char[64];
+	int x, y;
+
+	write(STDOUT_FILENO, "NUM 1: 0x", 9);
+	read(STDIN_FILENO, read_x_char, sizeof(read_x_char)-1);
+	int read_x = atoi(read_x_char);
+
+	write(STDOUT_FILENO, "\nNUM 2: 0x", 10);
+	read(STDIN_FILENO, read_y_char, sizeof(read_y_char)-1);
+	int read_y = atoi(read_y_char);
+
+	char buf[64];
+	int len = snprintf(buf, sizeof(buf), "%d %d\n", bus_storage[read_x].val, bus_storage[read_y].val);
+	write(STDOUT_FILENO, buf, len);
 }
 
 inline void _CLOCK(void) { system("timedatectl"); /*I'M NOT USING DEFINE*/ }
