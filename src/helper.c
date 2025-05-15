@@ -13,8 +13,7 @@ int _LOAD(void)
 	size_t scstat = read(STDIN_FILENO, input, sizeof(input)-1);
 	size_t post_input = atoi(input);
 
-	if (scstat == -1)
-		return scstat;
+	(sctat == -1) ? return scstat : 0;
 	
 	i=0;
 	while (i<65) {
