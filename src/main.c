@@ -73,7 +73,7 @@ static void shell(void)
 				} else {
      					funcMap[i].intFunc();
   				}
-   			found = 1;
+	   			found = 1;
 	  			break;
 			}
 		i++;
