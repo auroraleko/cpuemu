@@ -98,12 +98,16 @@ void _PRINT_BUS(void)
 	write(STDOUT_FILENO, "----- BUS MEMORY -----\n", 23);
 	int i=0;
 	while (i<65) {
-		char buffer[64];
-		size_t len = snprintf(buffer, sizeof(buffer), "[%d] LOC: %d | VAL: %d\n", i, bus_storage[i].loc, bus_storage[i].val);
+		char buffer[128];
+		size_t len = snprintf(buffer, sizeof(buffer), "[%d] LOC: 0x%d | VAL: %d\n", i, bus_storage[i].loc, bus_storage[i].val);
 		write(STDOUT_FILENO, buffer, len);
 		i++;
 	}
-	write(STDOUT_FILENO, "----------------------\n", 23);
+	int j=0;
+	while (j<24)
+		write(STDOUT_FILENO, "-", 1);
+	
+	write(STDOUT_FILENO, "\n", 1);
 }
 
 inline void _ECHO(void)
