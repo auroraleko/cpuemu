@@ -94,7 +94,7 @@ inline void _CLOCK(void) { system("timedatectl"); /*I'M NOT USING DEFINE*/ }
 
 inline void _EXIT(void) { exit(0); /*this isn't a macro SHUT UP*/ }
 
-inline void _PRINT_BUS(void)
+void _PRINT_BUS(void)
 {
 	write(STDOUT_FILENO, "----- BUS MEMORY -----\n", 23);
 	int i=0;
