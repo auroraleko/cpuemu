@@ -55,39 +55,7 @@ void _STORE(void)
 	}
 }
 
-// make math functions
-
-int _MATH(void) 
-{
-	/*
-	typedef void (*funcCall)();
-	typedef struct {
-		char *opName;
-		funcCall opFunc;
-	} Block;
-	Block operationMap[] = {
-		{"ADD", _MATH_ADD},
-		{"SUB" _MATH_SUB},
-		{"MUL", _MATH_MUL},
-		{"DIV", _MATH_DIV},
-		{"\0", NULL}
-	}; char input[64];
-	printf("OPERATION :");scanf("%s", &input);
-	while (1) {
-		int i=0, found = 0;
-		int opSize = sizeof(operationMap)/sizeof(operationMap[0]);
-		while (i<opSize) {
-			if (operationMap[i].opName == input) {
-				operationMap[i].opFunc();
-				found = 1;break;
-			}
-			i++;
-		}
-		if (found != 1) {
-			printf("OPERATION INVALID\n");
-		}
-	}
-	*/
+int _MATH(void) {
 }
 
 inline void _CLOCK(void) { system("timedatectl"); /*I'M NOT USING DEFINE*/ }
