@@ -13,8 +13,9 @@ int _LOAD(void)
 	size_t scstat = read(STDIN_FILENO, input, sizeof(input)-1);
 	size_t post_input = atoi(input);
 
-	(sctat == -1) ? return scstat : 0;
-	
+	if (scstat == -1)
+		return scstat;
+
 	i=0;
 	while (i<65) {
 		if (bus_storage[i].loc == post_input) 
@@ -105,8 +106,10 @@ void _PRINT_BUS(void)
 	}
 	int j=0;
 	while (j<24)
+	{
 		write(STDOUT_FILENO, "-", 1);
-	
+		j++;
+	}
 	write(STDOUT_FILENO, "\n", 1);
 }
 
