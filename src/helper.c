@@ -63,10 +63,36 @@ void _STORE(void)
 	}
 }
 
+static int _math_HELP(int x, int y)
+{
+	// Write help
+}
+
+// Write all the math fucntiona :DD1
+
 static int _MATH(void) 
 {
+	char errMsg[] = "Invalid Operation. Type \"HELP\" to see all operations\n";
+	typedef int (*mInt)(int, int);
+	typedef struct
+	{
+		char *call;
+		mInt func;
+	} mMap;
+	mMap mfuncMap[]=
+	{
+		{"\0", NULL},
+		{"HELP", _math_HELP},
+		{"ADD", _math_ADD},
+		{"SUB", _math_SUB},
+		{"MULTIPLY", _math_SUB},
+		{"DIVIDE", _math_DIV}
+	};
+
+	ssize_t mFMAP_size = sizeof(mfuncMap)/sizeof(mfuncMap[0]);
+
 	char read_x_char[64], read_y_char[64];
-	int x, y;
+	int x, y, i=0, found = 0;
 
 	write(STDOUT_FILENO, "NUM 1: 0x", 9);
 	read(STDIN_FILENO, read_x_char, sizeof(read_x_char)-1);
@@ -76,9 +102,24 @@ static int _MATH(void)
 	read(STDIN_FILENO, read_y_char, sizeof(read_y_char)-1);
 	int read_y = atoi(read_y_char);
 
-	char buf[64];
-	int len = snprintf(buf, sizeof(buf), "%d %d\n", bus_storage[read_x].val, bus_storage[read_y].val);
-	write(STDOUT_FILENO, buf, len);
+	char input[64];
+	write(STDOUT_FILENO, "\nOPERATION: ", 12);
+	read(STDIN_FILENO, input, sizeof(input)-1);
+
+	while (i < mFMAP_size)
+	{
+		if (strcmp(input, mfuncMap[i].call) == 0)
+		{
+			char buf[256];found = 1;
+			ssize_t len = snprintf(buf, sizeof(buf), "%d\n", mfuncMap[i].func(read_x, read_y));
+			write(STDOUT_FILENO, buf, len);
+			break;
+		}
+		i++;
+	}
+	if (found != 1)
+		write(STDERR_FILENO, errMsg, sizeof(errMsg));
+
 }
 
 inline void _void_MATH(void)
