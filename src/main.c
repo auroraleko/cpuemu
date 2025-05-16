@@ -1,3 +1,4 @@
+// convert all to syscall(SYS_write, STDOUT_FILENO, etc
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
