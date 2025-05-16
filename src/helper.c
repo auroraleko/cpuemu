@@ -94,12 +94,14 @@ static inline int _math_DIV(int x, int y)
 static int _MATH(void) 
 {
 	char errMsg[] = "Invalid Operation. Type \"HELP\" to see all operations\n";
+	
 	typedef int (*mInt)(int, int);
 	typedef struct
 	{
 		char *call;
 		mInt func;
 	} mMap;
+	
 	mMap mfuncMap[]=
 	{
 		{"\0", NULL},
@@ -140,9 +142,9 @@ static int _MATH(void)
 		}
 		i++;
 	}
+	
 	if (found != 1)
 		write(STDERR_FILENO, errMsg, sizeof(errMsg));
-
 }
 
 inline void _void_MATH(void)
