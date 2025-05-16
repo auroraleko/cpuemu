@@ -8,6 +8,8 @@ typedef struct
 } Byte;
 extern Byte bus_storage[65];
 
+// global func call
+
 void _void_LOAD();
 void _STORE();
 void _void_MATH();
