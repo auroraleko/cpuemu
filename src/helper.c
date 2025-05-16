@@ -63,12 +63,33 @@ void _STORE(void)
 	}
 }
 
-static int _math_HELP(int x, int y)
+static inline int _math_HELP(int x, int y)
 {
-	// Write help
+	char helpmsg[] = "MATH HELP:\n	ADD\n	SUB\n	MULTIPLY\n	DIVIDE\n";
+	write(STDOUT_FILENO, helpmsg, sizeof(helpmsg));
+	
+	return 0;
 }
 
-// Write all the math fucntiona :DD1
+static inline int _math_ADD(int x, int y)
+{
+	return x + y;
+}
+
+static inline int _math_SUB(int x, int y)
+{
+	return x - y;
+}
+
+static inline int _math_MUL(int x, int y)
+{
+	return x * y;
+}
+
+static inline int _math_DIV(int x, int y)
+{
+	return x / y;
+}
 
 static int _MATH(void) 
 {
@@ -85,7 +106,7 @@ static int _MATH(void)
 		{"HELP", _math_HELP},
 		{"ADD", _math_ADD},
 		{"SUB", _math_SUB},
-		{"MULTIPLY", _math_SUB},
+		{"MULTIPLY", _math_MUL},
 		{"DIVIDE", _math_DIV}
 	};
 
@@ -97,6 +118,8 @@ static int _MATH(void)
 	write(STDOUT_FILENO, "NUM 1: 0x", 9);
 	read(STDIN_FILENO, read_x_char, sizeof(read_x_char)-1);
 	int read_x = atoi(read_x_char);
+	
+	// take care here, it might call the loc and not the val for bus_storage[read...]
 
 	write(STDOUT_FILENO, "\nNUM 2: 0x", 10);
 	read(STDIN_FILENO, read_y_char, sizeof(read_y_char)-1);
