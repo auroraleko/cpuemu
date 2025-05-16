@@ -65,31 +65,15 @@ void _STORE(void)
 
 static inline int _math_HELP(int x, int y)
 {
-	char helpmsg[] = "MATH HELP:\n	ADD\n	SUB\n	MULTIPLY\n	DIVIDE\n";
-	write(STDOUT_FILENO, helpmsg, sizeof(helpmsg));
-	
+	char *helpmsg = "MATH HELP:\n	ADD\n	SUB\n	MULTIPLY\n	DIVIDE\n";
+	write(STDOUT_FILENO, helpmsg, 36);
 	return 0;
 }
 
-static inline int _math_ADD(int x, int y)
-{
-	return x + y;
-}
-
-static inline int _math_SUB(int x, int y)
-{
-	return x - y;
-}
-
-static inline int _math_MUL(int x, int y)
-{
-	return x * y;
-}
-
-static inline int _math_DIV(int x, int y)
-{
-	return x / y;
-}
+static inline int _math_ADD(int x, int y) { return x + y; }
+static inline int _math_SUB(int x, int y) { return x - y; }
+static inline int _math_MUL(int x, int y) { return x * y; }
+static inline int _math_DIV(int x, int y) { return x / y; }
 
 static int _MATH(void) 
 {
