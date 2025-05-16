@@ -180,7 +180,7 @@ void _PRINT_BUS(void)
 	write(STDOUT_FILENO, "\n", 1);
 }
 
-inline void _ECHO(void)
+void _ECHO(void)
 {
 	write(STDOUT_FILENO, "\n : ", 4);
 	char input[64] = {0};
