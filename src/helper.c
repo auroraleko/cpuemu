@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/syscall.h>
 #include "funclib.h"
 
 static size_t _LOAD(void) 
@@ -9,8 +10,8 @@ static size_t _LOAD(void)
 	int i;
 	char input[32];
 
-	write(STDOUT_FILENO, "\nADDRESS: 0x", 12);
-	size_t scstat = read(STDIN_FILENO, input, sizeof(input)-1);
+	syscall(SYS_write, STDOUT_FILENO, "\nADDRESS: 0x", 12);
+	size_t scstat = syscall(SYS_read, STDIN_FILENO, input, sizeof(input)-1);
 	size_t post_input = atoi(input);
 
 	if (scstat == -1)
@@ -35,7 +36,7 @@ inline void _void_LOAD(void)
 	char buf[128];
 	size_t len = snprintf(buf, sizeof(buf), "%d\n", res);
 
-	write(STDOUT_FILENO, buf, len);
+	syscall(SYS_write, STDOUT_FILENO, buf, len);
 }
 
 void _STORE(void)
@@ -43,12 +44,12 @@ void _STORE(void)
 	int i;
 	char read_val[32], read_loc[32];
 
-	write(STDOUT_FILENO, "\nVALUE: ", 8);
-	read(STDIN_FILENO, read_val, sizeof(read_val)-1);
+	syscall(SYS_write, STDOUT_FILENO, "\nVALUE: ", 8);
+	syscall(SYS_read, STDIN_FILENO, read_val, sizeof(read_val)-1);
 	size_t read_intVal = atoi(read_val);
 
-	write(STDOUT_FILENO, "\nLOCATION: 0x", 13);
-	read(STDIN_FILENO, read_loc, sizeof(read_loc)-1);
+	syscall(SYS_write, STDOUT_FILENO, "\nLOCATION: 0x", 13);
+	syscall(SYS_read, STDIN_FILENO, read_loc, sizeof(read_loc)-1);
 	size_t read_intLoc = atoi(read_loc);
 
 	i=0;
@@ -66,7 +67,7 @@ void _STORE(void)
 static inline int _math_HELP(int x, int y)
 {
 	char *helpmsg = "MATH HELP:\n	ADD\n	SUB\n	MULTIPLY\n	DIVIDE\n";
-	write(STDOUT_FILENO, helpmsg, 36);
+	syscall(SYS_write, STDOUT_FILENO, helpmsg, 36);
 	return 0;
 }
 
@@ -101,19 +102,19 @@ static int _MATH(void)
 	char read_x_char[64], read_y_char[64];
 	int x, y, i=0, found = 0;
 
-	write(STDOUT_FILENO, "NUM 1: 0x", 9);
-	read(STDIN_FILENO, read_x_char, sizeof(read_x_char)-1);
+	syscall(SYS_write, STDOUT_FILENO, "NUM 1: 0x", 9);
+	syscall(SYS_read, STDIN_FILENO, read_x_char, sizeof(read_x_char)-1);
 	int read_x = atoi(read_x_char);
 	
 	// take care here, it might call the loc and not the val for bus_storage[read...]
 
-	write(STDOUT_FILENO, "\nNUM 2: 0x", 10);
-	read(STDIN_FILENO, read_y_char, sizeof(read_y_char)-1);
+	syscall(SYS_write, STDOUT_FILENO, "\nNUM 2: 0x", 10);
+	syscall(SYS_read, STDIN_FILENO, read_y_char, sizeof(read_y_char)-1);
 	int read_y = atoi(read_y_char);
 
 	char input[64];
-	write(STDOUT_FILENO, "\nOPERATION: ", 12);
-	read(STDIN_FILENO, input, sizeof(input)-1);
+	syscall(SYS_write, STDOUT_FILENO, "\nOPERATION: ", 12);
+	syscall(SYS_read, STDIN_FILENO, input, sizeof(input)-1);
 
 	while (i < mFMAP_size)
 	{
@@ -121,14 +122,14 @@ static int _MATH(void)
 		{
 			char buf[256];found = 1;
 			ssize_t len = snprintf(buf, sizeof(buf), "%d\n", mfuncMap[i].func(read_x, read_y));
-			write(STDOUT_FILENO, buf, len);
+			syscall(SYS_write, STDOUT_FILENO, buf, len);
 			break;
 		}
 		i++;
 	}
 	
 	if (found != 1)
-		write(STDERR_FILENO, errMsg, sizeof(errMsg));
+		syscall(SYS_write, STDERR_FILENO, errMsg, sizeof(errMsg));
 }
 
 inline void _void_MATH(void)
@@ -138,7 +139,7 @@ inline void _void_MATH(void)
 	char buf[128];
 	size_t len = snprintf(buf, sizeof(buf), "%d\n", res);
 
-	write(STDOUT_FILENO, buf, len);
+	syscall(SYS_write, STDOUT_FILENO, buf, len);
 }
 
 inline void _CLOCK(void) { system("timedatectl"); /*I'M NOT USING DEFINE*/ }
@@ -147,33 +148,33 @@ inline void _EXIT(void) { exit(0); /*this isn't a macro SHUT UP*/ }
 
 void _PRINT_BUS(void)
 {
-	write(STDOUT_FILENO, "----- BUS MEMORY -----\n", 23);
+	syscall(SYS_write, STDOUT_FILENO, "----- BUS MEMORY -----\n", 23);
 	int i=0;
 	while (i<65) {
 		char buffer[128];
 		size_t len = snprintf(buffer, sizeof(buffer), "[%d] LOC: 0x%d | VAL: %d\n", i, bus_storage[i].loc, bus_storage[i].val);
-		write(STDOUT_FILENO, buffer, len);
+		syscall(SYS_write, STDOUT_FILENO, buffer, len);
 		i++;
 	}
 	int j=0;
 	while (j<24)
 	{
-		write(STDOUT_FILENO, "-", 1);
+		syscall(SYS_write, STDOUT_FILENO, "-", 1);
 		j++;
 	}
-	write(STDOUT_FILENO, "\n", 1);
+	syscall(SYS_write, STDOUT_FILENO, "\n", 1);
 }
 
 void _ECHO(void)
 {
-	write(STDOUT_FILENO, "\n : ", 4);
+	syscall(SYS_write, STDOUT_FILENO, "\n : ", 4);
 	char input[64] = {0};
-	ssize_t n = read(STDIN_FILENO, input, sizeof(input) - 1);
+	ssize_t n = syscall(SYS_read, STDIN_FILENO, input, sizeof(input) - 1);
 	if (n > 0) {
 		input[n] = '\0';
-		write(STDOUT_FILENO, "\n", 1);
-		write(STDOUT_FILENO, input, n);
-		write(STDOUT_FILENO, "\n", 1);
+		syscall(SYS_write, STDOUT_FILENO, "\n", 1);
+		syscall(SYS_write, STDOUT_FILENO, input, n);
+		syscall(SYS_write, STDOUT_FILENO, "\n", 1);
 	}
 }
 
