@@ -9,5 +9,5 @@ debug:
 	./emu_shell.cpu
 
 run:
-	gcc ./src/* -o ./emu_shell.cpu
+	gcc ./src/*.c -o ./emu_shell.cpu
 	./emu_shell.cpu

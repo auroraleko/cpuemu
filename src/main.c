@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/syscall.h>
 #include "../ascii/title.h"
 #include "../db/junk.h"
 #include "funclib.h"
@@ -36,15 +37,15 @@ size_t funcSize = sizeof(funcMap)/sizeof(funcMap[0]);
 
 void _HELP(void) 
 {
-	write(STDOUT_FILENO, "LIST OF POSSIBLE COMMANDS:\n", 27);
+	syscall(SYS_write, STDOUT_FILENO, "LIST OF POSSIBLE COMMANDS:\n", 27);
 	int i=0;
 	while (i<funcSize) {
 		char buffer[256];
 		int len = snprintf(buffer, sizeof(buffer), "\n    %s : %s", funcMap[i].name, funcMap[i].desc);
-		write(STDOUT_FILENO, buffer, len);
+		syscall(SYS_write, STDOUT_FILENO, buffer, len);
 		usleep(50000);i++;
 	}
-	write(STDOUT_FILENO, "\n", 1);
+	syscall(SYS_write, STDOUT_FILENO, "\n", 1);
 }
 
 char user[64];
@@ -54,16 +55,17 @@ static void shell(void)
 	CLEAR;char args[512];
 	char startBuf[1531];
 	int startLen = snprintf(startBuf, sizeof(startBuf), "%s\nemuSHELL %s\n", title, ver);
-	write(STDOUT_FILENO, startBuf, startLen);
-	write(STDOUT_FILENO, "Please enter your name: ", 24);scanf("%s", &user);
+	syscall(SYS_write, STDOUT_FILENO, startBuf, startLen);
+	syscall(SYS_write, STDOUT_FILENO, "Please enter your name: ", 24);
+	syscall(SYS_read, STDIN_FILENO, user, sizeof(user));
 	if (strcmp(user, "debugpls") == 0) {
 		system("gcc -fsanitize=address -g ./src/main.c ./src/helper.c -o emu_shell.cpu;echo \"Debug Mode Activated.\"");system("sleep 1;./emu_shell.cpu");
 	}
 	while (1) {
 		char shellBuffer[64];
 		int shellLen = snprintf(shellBuffer, sizeof(shellBuffer), "\n%s%% ", user);
-		write(STDOUT_FILENO, shellBuffer, shellLen);
-		scanf("%s", &args); // fix this lmfao
+		syscall(SYS_write, STDOUT_FILENO, shellBuffer, shellLen);
+		scanf("%s", &args); // syscall is literally not working i have no clue what to do 
 		int i=0, found = 0;
 		while (i<funcSize) 
 		{
@@ -76,7 +78,7 @@ static void shell(void)
 		i++;
 		}
 		if (found == 0) 
-			write(STDERR_FILENO, "Invalid Command.\n", 17);
+			syscall(SYS_write, STDERR_FILENO, "Invalid Command.\n", 17);
 	}
 }
 
