@@ -9,7 +9,7 @@
 #define CLEAR system("clear")
 
 Byte bus_storage[65];
-typedef void (*callFunc)();
+typedef void (*callFunc)(void);
 typedef struct
 {
 	char *name;
@@ -56,7 +56,7 @@ static void shell(void)
 	int startLen = snprintf(startBuf, sizeof(startBuf), "%s\nemuSHELL %s\n", title, ver);
 	syscall(SYS_write, STDOUT_FILENO, startBuf, startLen);
 	syscall(SYS_write, STDOUT_FILENO, "Please enter your name: ", 24);
-	syscall(SYS_read, STDIN_FILENO, user, sizeof(user));
+	syscall(SYS_read, STDIN_FILENO, user, sizeof(user)-1);
 	if (strcmp(user, "debugpls") == 0) {
 		system("gcc -fsanitize=address -g ./src/main.c ./src/helper.c -o emu_shell.cpu;echo \"Debug Mode Activated.\"");system("sleep 1;./emu_shell.cpu");
 	}
@@ -64,7 +64,9 @@ static void shell(void)
 		char shellBuffer[64];
 		int shellLen = snprintf(shellBuffer, sizeof(shellBuffer), "\n%s%% ", user);
 		syscall(SYS_write, STDOUT_FILENO, shellBuffer, shellLen);
-		scanf("%s", &args); // syscall is literally not working i have no clue what to do 
+		ssize_t argch = syscall(SYS_read, STDIN_FILENO, args, sizeof(args) - 1);
+		args[argch] = '\0';
+		if (argch > 0 && args[argch - 1] == '\n') args[argch - 1] = '\0';
 		int i=0, found = 0;
 		while (i<funcSize) 
 		{
@@ -76,8 +78,12 @@ static void shell(void)
   			}
 		i++;
 		}
-		if (found == 0) 
-			syscall(SYS_write, STDERR_FILENO, "Invalid Command.\n", 17);
+		if (found == 0)
+		{	
+			char buf[256];
+			int len = snprintf(buf, sizeof(buf), "%s: Invalid Command\n", args);
+			syscall(SYS_write, STDERR_FILENO, buf, len);
+		}
 	}
 }
 

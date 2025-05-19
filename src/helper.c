@@ -31,10 +31,10 @@ static size_t _LOAD(void)
 
 inline void _void_LOAD(void)
 {
-	size_t res = _LOAD();
+	ssize_t res = _LOAD();
 
 	char buf[128];
-	size_t len = snprintf(buf, sizeof(buf), "%d\n", res);
+	ssize_t len = snprintf(buf, sizeof(buf), "%ld\n", res);
 
 	syscall(SYS_write, STDOUT_FILENO, buf, len);
 }
@@ -100,7 +100,7 @@ static int _MATH(void)
 	ssize_t mFMAP_size = sizeof(mfuncMap)/sizeof(mfuncMap[0]);
 
 	char read_x_char[64], read_y_char[64];
-	int x, y, i=0, found = 0;
+	int i=0, found = 0;
 
 	syscall(SYS_write, STDOUT_FILENO, "NUM 1: 0x", 9);
 	syscall(SYS_read, STDIN_FILENO, read_x_char, sizeof(read_x_char)-1);
@@ -120,24 +120,25 @@ static int _MATH(void)
 	{
 		if (strcmp(input, mfuncMap[i].call) == 0)
 		{
-			char buf[256];found = 1;
-			ssize_t len = snprintf(buf, sizeof(buf), "%d\n", mfuncMap[i].func(read_x, read_y));
-			syscall(SYS_write, STDOUT_FILENO, buf, len);
+			return mfuncMap[i].func(read_x, read_y);
 			break;
 		}
 		i++;
 	}
 	
-	if (found != 1)
+	if (found != 1) {
 		syscall(SYS_write, STDERR_FILENO, errMsg, sizeof(errMsg));
+		return -1;
+	}
+	return -1;
 }
 
 inline void _void_MATH(void)
 {
-	int res = _MATH();
+	ssize_t res = _MATH();
 
 	char buf[128];
-	size_t len = snprintf(buf, sizeof(buf), "%d\n", res);
+	ssize_t len = snprintf(buf, sizeof(buf), "%ld\n", res);
 
 	syscall(SYS_write, STDOUT_FILENO, buf, len);
 }
