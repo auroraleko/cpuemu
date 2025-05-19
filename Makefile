@@ -1,5 +1,7 @@
 all:
-	gcc -O2 -Wall ./src/*.c -o emu_shell.cpu
+	as --64 src/main.s -o ./main.o
+	gcc -O2 -Wall src/helper.c main.o -o emu_shell.cpu
+	rm ./*.o
 
 clean:
 	rm -f ./emu_shell.cpu
@@ -9,5 +11,7 @@ debug:
 	./emu_shell.cpu
 
 run:
-	gcc -Wall -O2 ./src/*.c -o ./emu_shell.cpu
+	as --64 src/main.s -o ./main.o
+	gcc -O2 -Wall src/helper.c main.o -o emu_shell.cpu
+	rm ./*.o
 	./emu_shell.cpu

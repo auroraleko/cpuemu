@@ -38,7 +38,7 @@ void _HELP(void)
 {
 	syscall(SYS_write, STDOUT_FILENO, "LIST OF POSSIBLE COMMANDS:\n", 27);
 	int i=0;
-	while (i<funcSize) {
+	while (i<funcSize-1) {
 		char buffer[256];
 		int len = snprintf(buffer, sizeof(buffer), "\n    %s : %s", funcMap[i].name, funcMap[i].desc);
 		syscall(SYS_write, STDOUT_FILENO, buffer, len);
