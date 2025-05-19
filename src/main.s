@@ -421,5 +421,3 @@ title:
 	.base64	"X19fX19fX19fX1wvXFxcX19fX19fX19fX19fXyAgCiAgICAgICBfX1wvL1xcXFxcXFxcXFxfXC9cXFxfX1wvXFxcX19cL1xcXF9cLy9cXFxcXFxcXFxfX1wvLy9cXFxcXFxcXFxcXC9fX19cL1xcXF9fX19fX19cL1xcXF9cL1xcXFxcXFxcXFxcXFxcXF9cL1xcXFxcXFxcXFxcXFxcXF9cL1xcXFxcXFxcXFxcXFxcXF8gCiAgICAgICAgX19fXC8vLy8vLy8vLy9fX1wvLy9fX19cLy8vX19fXC8vL19fX1wvLy8vLy8vLy9fX19fX1wvLy8vLy8vLy8vL19f"
 	.ascii	"___\\///________\\///__\\///////////////__\\///////////////_"
 	.ascii	"_\\///////////////__\n\n"
-	.ident	"GCC: (GNU) 15.1.1 20250425"
-	.section	.note.GNU-stack,"",@progbits
